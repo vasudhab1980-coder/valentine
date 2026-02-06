@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mythical Divine Love App 🌙💖</title>
+
+<style>
+body{
+  margin:0;
+  font-family:'Comic Sans MS',cursive;
+  background:radial-gradient(circle at top,#0b0f2a,#02030a);
+  color:white;
+  overflow:hidden;
+}
+
+/* stars */
+.star{
+  position:fixed;
+  width:2px;height:2px;
+  background:white;
+  opacity:.8;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{from{opacity:.2}to{opacity:1}}
+
+/* shooting star */
+.shoot{
+  position:fixed;
+  width:3px;height:3px;
+  background:white;
+  box-shadow:0 0 10px white;
+  animation:shoot 4s linear infinite;
+}
+@keyframes shoot{
+  from{transform:translate(0,0);opacity:1}
+  to{transform:translate(-600px,300px);opacity:0}
+}
+
+.moon{
+  position:fixed;top:40px;right:40px;
+  font-size:70px;filter:drop-shadow(0 0 15px #fff);
+}
+
+.slide{
+  display:none;height:100vh;width:100vw;
+  align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;
+  padding:20px;animation:fade 1s ease;
+}
+.active{display:flex;}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+h1{color:#ff9ed1;text-shadow:0 0 20px #ff4da6}
+p{max-width:500px;color:#eee}
+
+button{
+  margin-top:20px;padding:14px 30px;
+  border:none;border-radius:30px;
+  background:linear-gradient(45deg,#ff4da6,#ff7ac6);
+  color:white;cursor:pointer;
+  box-shadow:0 0 20px #ff4da6;
+  transition:.3s;
+}
+button:hover{transform:scale(1.1)}
+
+.emoji-line{font-size:80px;margin-bottom:15px}
+
+input{
+  padding:12px;border-radius:25px;border:none;
+  text-align:center;margin-top:10px;
+}
+
+#response{margin-top:15px;color:#ff9ed1;font-weight:bold}
+
+/* floating hearts */
+.heart{
+  position:fixed;bottom:-20px;font-size:18px;
+  animation:floatUp 6s linear infinite;opacity:.7;
+}
+@keyframes floatUp{to{transform:translateY(-110vh)}}
+
+/* heart explosion */
+.explode{
+  position:fixed;font-size:24px;
+  animation:boom 1.5s ease forwards;
+}
+@keyframes boom{
+  to{transform:translateY(-120px) scale(2);opacity:0}
+}
+
+/* 💍 RING */
+.ring{
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(0);
+  font-size:90px;
+  opacity:0;
+  transition:1s;
+  filter:drop-shadow(0 0 20px gold);
+}
+.ring.show{
+  transform:translate(-50%,-50%) scale(1);
+  opacity:1;
+  animation:openRing 2s ease forwards;
+}
+
+@keyframes openRing{
+  0%{transform:translate(-50%,-50%) scale(0) rotate(0)}
+  60%{transform:translate(-50%,-50%) scale(1.2) rotate(10deg)}
+  100%{transform:translate(-50%,-50%) scale(1) rotate(0)}
+}
+
+/* hidden message */
+.secret{
+  margin-top:20px;
+  display:none;
+  font-size:1.3rem;
+  color:#ffd6f2;
+}
+</style>
+</head>
+
+<body>
+
+<div class="moon">🌙</div>
+<div id="ring" class="ring">💍</div>
+
+<script>
+/* stars */
+for(let i=0;i<90;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  document.body.appendChild(s);
+}
+
+/* floating hearts */
+for(let i=0;i<30;i++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=4+Math.random()*4+"s";
+  document.body.appendChild(h);
+}
+
+/* shooting stars */
+setInterval(()=>{
+  const st=document.createElement("div");
+  st.className="shoot";
+  st.style.left=Math.random()*100+"vw";
+  st.style.top=Math.random()*40+"vh";
+  document.body.appendChild(st);
+  setTimeout(()=>st.remove(),4000);
+},2500);
+</script>
+
+<!-- Slides unchanged -->
+<div class="slide active" id="slide1">
+  <div class="emoji-line">🐱💖🐱</div>
+  <h1>Hey Cutieeee</h1>
+  <p>I made something special for you 🥺</p>
+  <button onclick="nextSlide(2)">Tap to open 💌</button>
+</div>
+
+<div class="slide" id="slide2">
+  <div class="emoji-line">🐶💖🐶</div>
+  <h1>You are very special ✨</h1>
+  <p>And I wanted to ask something important...</p>
+  <button onclick="nextSlide(3)">Continue 👉</button>
+</div>
+
+<div class="slide" id="slide3">
+  <div class="emoji-line">🐰💖🐰</div>
+  <h1>Mini Question 😌</h1>
+  <p>Who is the cutest person in my world?</p>
+  <input id="answer" placeholder="Type answer...">
+  <button onclick="checkAnswer()">Submit 💭</button>
+  <div id="response"></div>
+</div>
+
+<div class="slide" id="slide4">
+  <div class="emoji-line">🐼💖🐼</div>
+  <h1>Of course it's YOUUU 🥺💗</h1>
+  <p>You make my heart happier every day ✨</p>
+  <button onclick="nextSlide(5)">Last thing 👉</button>
+</div>
+
+<div class="slide" id="slide5">
+  <div class="emoji-line">🦢💖🦢</div>
+  <h1>Will you be my Valentine? 💖</h1>
+  <button onclick="finalYes()">YESSSS 💕</button>
+
+  <div id="finalMsg" class="secret">
+    Under this moon… we are officially us forever 🌙💞
+  </div>
+</div>
+
+<script>
+function nextSlide(n){
+  document.querySelectorAll(".slide").forEach(s=>s.classList.remove("active"));
+  document.getElementById("slide"+n).classList.add("active");
+}
+
+let attempts=0;
+const correct=['you','me','hany','kim'];
+
+function checkAnswer(){
+  const val=answer.value.toLowerCase().trim();
+  if(correct.includes(val)){
+    response.innerText="Awww correct 😭💖";
+    setTimeout(()=>nextSlide(4),1500);
+    return;
+  }
+  attempts++;
+  if(attempts===1) response.innerText="Wrong 😤 try again";
+  else if(attempts===2) response.innerText="Still wrong 🙄";
+  else if(attempts===3) response.innerText="Bruhhh 😑";
+  else{
+    response.innerText="Fine… answer is YOU 😌💗";
+    setTimeout(()=>nextSlide(4),2000);
+  }
+}
+
+/* YES magic with ring */
+function finalYes(){
+  finalMsg.style.display="block";
+
+  /* 💍 show ring */
+  const ring=document.getElementById("ring");
+  ring.classList.add("show");
+
+  /* hearts burst */
+  for(let i=0;i<25;i++){
+    const e=document.createElement("div");
+    e.className="explode";
+    e.innerText="💖";
+    e.style.left=(window.innerWidth/2)+"px";
+    e.style.top=(window.innerHeight/2)+"px";
+    e.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
+    document.body.appendChild(e);
+    setTimeout(()=>e.remove(),1500);
+  }
+
+  /* secret message */
+  setTimeout(()=>{
+    alert("Secret message: I love you more than words 💌");
+  },3500);
+}
+</script>
+
+</body>
+</html>
